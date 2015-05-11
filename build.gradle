@@ -7,25 +7,24 @@ repositories {
 }
 
 dependencies {
-	compile 'org.elasticsearch:elasticsearch:1.0.0'
+	compile 'org.elasticsearch:elasticsearch:1.5.2'
 }
 
 sourceSets {
-    main {
-        java {
-        	srcDir 'src'
-        }
-        resources {
-            srcDir 'conf'
-        }
-    }
-    test {
-        java {
-            srcDir 'test'
-        }
-        resources {
-            srcDir 'test-resources'
-        }
-       
-    }
+ 	main {
+		java {
+			srcDir 'src/java'
+		}
+		resources {
+			srcDir 'src/resources'
+		}
+	}
+	test {
+		java {
+			srcDir 'src/java'
+		}
+		resources {
+			srcDir 'src/resources'
+		}
+	}
 }
