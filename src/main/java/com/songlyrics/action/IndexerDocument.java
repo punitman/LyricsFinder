@@ -1,11 +1,10 @@
-package com.songlyrics.model;
+package com.songlyrics.action;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.Client;
@@ -25,9 +24,9 @@ public class IndexerDocument {
 			IOException {
 
 		IndexResponse response = client
-				.prepareIndex("songs", "genre")
+				.prepareIndex(LyricsFinderConstants._INDEX.toString(), LyricsFinderConstants._TYPE.toString())
 				.setSource(
-						jsonBuilder().startObject().field("user", "kimchy")
+						jsonBuilder().startObject()
 								.field("song_title", detail.getSong_title())
 								.field("contributer",detail.getContributer())
 								.field("album_name",detail.getAlbum_name())

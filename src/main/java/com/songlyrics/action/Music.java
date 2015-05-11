@@ -1,4 +1,4 @@
-package com.songlyrics.model;
+package com.songlyrics.action;
 
 public class Music {
 	private double id;
