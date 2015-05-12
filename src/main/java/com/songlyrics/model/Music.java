@@ -6,6 +6,8 @@ public class Music {
 	private String contributer="";
 	private String album_name="";
 	private String genre_type="";
+	private String lyrics="";
+	private String released_date="";
 	
 	public String getGenre_type() {
 		return genre_type;
@@ -13,8 +15,6 @@ public class Music {
 	public void setGenre_type(String genre_type) {
 		this.genre_type = genre_type;
 	}
-	private String lyrics;
-	private String released_date;
 	
 	public String getReleased_date() {
 		return released_date;
