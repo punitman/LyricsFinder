@@ -10,6 +10,7 @@ import com.songlyrics.action.SearchDocument;
 import com.songlyrics.fields.ConstantData;
 import com.songlyrics.fields.Documents;
 import com.songlyrics.message.SelectOption;
+import com.songlyrics.message.ShowDocument;
 import com.songlyrics.message.UI_musicReview_Input;
 import com.songlyrics.message.UI_userinput;
 
@@ -29,8 +30,12 @@ public class Lyrics_Searcher {
 						IndexerDocument.insert(client,music);
 					}
 					else if (select.trim().compareTo(ConstantData._OPTION_SEARCH.toString()) == 0)
-						SearchDocument.search(client,UI_userinput.input("Search").toLowerCase()
-										.trim());
+					{
+						ShowDocument.display(SearchDocument.search(client,UI_userinput.input("Search").toLowerCase().trim()));
+					}else if (select.trim().compareTo(ConstantData._OPTION_SEARCH_ALL.toString()) == 0)
+					{
+						ShowDocument.display(SearchDocument.search(client,""));
+					}
 				} catch (Exception ex) {
 					// TODO Auto-generated catch block
 					System.out.println("exception in main");

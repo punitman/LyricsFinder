@@ -13,23 +13,42 @@ import org.elasticsearch.search.SearchHit;
 
 import com.songlyrics.fields.ConstantData;
 import com.songlyrics.fields.Documents;
+import com.songlyrics.fields.RetriveDocument;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 
 
 public class SearchDocument {
-	public static List<Documents> search(Client client,String test){
+	public static List<Documents> search(Client client,String value){
 		List<Documents> searchedMusic=new ArrayList<Documents>();
 		SearchResponse scrollResp ;
-		scrollResp = client.prepareSearch(ConstantData._INDEX.toString()).setTypes(ConstantData._TYPE.toString()).setQuery(fieldQuery(test)).execute().actionGet();//.prepareSearch(LyricsFinderConstants._INDEX.toString())
-		
-		try{
+		if(value.length()>0)
+		scrollResp = client.
+				prepareSearch(ConstantData._INDEX.toString())
+				.setTypes(ConstantData._TYPE.toString())
+				.setQuery(fieldQuery(value))
+				.setFrom(0)
+				.setSize(55)
+				.setExplain(true)
+				.execute().actionGet();//.prepareSearch(LyricsFinderConstants._INDEX.toString())
+		else
+			scrollResp = client.
+			prepareSearch(ConstantData._INDEX.toString())
+			.setTypes(ConstantData._TYPE.toString())
+			.setFrom(0)
+			.setSize(55)
+			.setExplain(true)
+			.execute().actionGet();//.prepareSearch(LyricsFinderConstants._INDEX.toString())
+	try{
 		SearchHit[] results = scrollResp.getHits().getHits();
 		for (SearchHit hit : results) {
 			System.out.println("building");
 			Map<String,Object> result = hit.getSource();  
 			System.out.println(result);
+			String res=result.toString();
+			Documents doc=RetriveDocument.getDocument(res);
+			searchedMusic.add(doc);
 			}
 		System.out.println("done");
 		System.out.println("response built"+results.length);
