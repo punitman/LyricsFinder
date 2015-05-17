@@ -13,7 +13,6 @@ import org.elasticsearch.search.SearchHit;
 
 import com.songlyrics.fields.ConstantData;
 import com.songlyrics.fields.Documents;
-import com.songlyrics.fields.RetriveDocument;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 

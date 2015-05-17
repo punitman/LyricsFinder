@@ -1,5 +1,6 @@
-package com.songlyrics.fields;
+package com.songlyrics.action;
 
+import com.songlyrics.fields.Documents;
 import com.songlyrics.message.UI_userinput;
 
 public class RetriveDocument {
