@@ -1,14 +1,21 @@
-package com.songlyrics.action;
+package com.songlyrics.fields;
 
-public class Music {
+public class Documents {
 	private double id;
 	private String song_title="";
 	private String contributer="";
 	private String album_name="";
 	private String genre_type="";
+	private String band="";
 	
 	public String getGenre_type() {
 		return genre_type;
+	}
+	public String getBand() {
+		return band;
+	}
+	public void setBand(String band) {
+		this.band = band;
 	}
 	public void setGenre_type(String genre_type) {
 		this.genre_type = genre_type;

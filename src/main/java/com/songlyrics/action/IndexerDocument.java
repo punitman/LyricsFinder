@@ -9,22 +9,18 @@ import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.Client;
 
+import com.songlyrics.fields.ConstantData;
+import com.songlyrics.fields.Documents;
+
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
 public class IndexerDocument {
 
-	public static void insertData(){
-		Map<String, Object> json = new HashMap<String, Object>();
-		json.put("user","kimchy");
-		json.put("postDate",new Date());
-		json.put("message","trying out Elasticsearch");
-	}
-
-	public static IndexResponse insert(Client client, Music detail) throws ElasticsearchException,
+	public static IndexResponse insert(Client client, Documents detail) throws ElasticsearchException,
 			IOException {
 
 		IndexResponse response = client
-				.prepareIndex(LyricsFinderConstants._INDEX.toString(), LyricsFinderConstants._TYPE.toString())
+				.prepareIndex(ConstantData._INDEX.toString(), ConstantData._TYPE.toString())
 				.setSource(
 						jsonBuilder().startObject()
 								.field("song_title", detail.getSong_title())
