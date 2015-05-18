@@ -21,12 +21,13 @@ public class IndexerDocument {
 
 		IndexResponse response = client
 				.prepareIndex(ConstantData._INDEX.toString(), ConstantData._TYPE.toString())
-				.setSource(
-						jsonBuilder().startObject()
+				.setSource(jsonBuilder().startObject()
 								.field("song_title", detail.getSong_title())
 								.field("contributer",detail.getContributer())
 								.field("album_name",detail.getAlbum_name())
+								.field("band",detail.getBand())
 								.field("genre_type",detail.getGenre_type())
+								.field("rating",detail.getRating())
 								.field("lyrics",detail.getLyrics())
 								.field("released_date",detail.getReleased_date())
 								.endObject()).execute().actionGet();

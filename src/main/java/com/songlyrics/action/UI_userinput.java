@@ -1,4 +1,4 @@
-package com.songlyrics.message;
+package com.songlyrics.action;
 
 import java.util.Scanner;
 

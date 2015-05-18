@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHit;
 
@@ -16,41 +15,39 @@ import com.songlyrics.fields.Documents;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
-
-
-public class SearchDocument {
+public class SearchDocument{
 	public static List<Documents> search(Client client,String value){
 		List<Documents> searchedMusic=new ArrayList<Documents>();
-		SearchResponse scrollResp ;
+		SearchResponse response ;
 		if(value.length()>0)
-		scrollResp = client.
+		response = client.
 				prepareSearch(ConstantData._INDEX.toString())
 				.setTypes(ConstantData._TYPE.toString())
 				.setQuery(fieldQuery(value))
-				.setFrom(0)
-				.setSize(55)
 				.setExplain(true)
 				.execute().actionGet();//.prepareSearch(LyricsFinderConstants._INDEX.toString())
-		else
-			scrollResp = client.
-			prepareSearch(ConstantData._INDEX.toString())
-			.setTypes(ConstantData._TYPE.toString())
-			.setFrom(0)
-			.setSize(55)
-			.setExplain(true)
-			.execute().actionGet();//.prepareSearch(LyricsFinderConstants._INDEX.toString())
+		else{
+			response = client.
+					prepareSearch(ConstantData._INDEX.toString())
+					.setTypes(ConstantData._TYPE.toString())
+//					.setQuery(fieldQuery(value))
+					.setExplain(true)
+					.execute().actionGet();
+	    }
 	try{
-		SearchHit[] results = scrollResp.getHits().getHits();
+		SearchHit[] results = response.getHits().getHits();
+//		Map<String,Object> map;
 		for (SearchHit hit : results) {
-			System.out.println("building");
-			Map<String,Object> result = hit.getSource();  
-			System.out.println(result);
-			String res=result.toString();
-			Documents doc=RetriveDocument.getDocument(res);
+			Map<String,Object> map = hit.getSource();  
+			String res=map.toString();
+//			System.out.println(">>"+map);
+//			System.out.println("  "+res);
+			Documents doc=new Documents();
+			doc=(Documents) map.get(res);
+			doc=	RetriveDocument.getDocument(res);
+//			ShowDocument.display(doc);
 			searchedMusic.add(doc);
 			}
-		System.out.println("done");
-		System.out.println("response built"+results.length);
 		}
 		catch(Exception ex){
 			System.out.println(ex.getMessage());
@@ -58,13 +55,13 @@ public class SearchDocument {
 		//Scroll until no hits are returned
 		
 //		while (true) {
-//		    for (SearchHit hit : scrollResp.getHits().getHits()) {
+//		    for (SearchHit hit : response.getHits().getHits()) {
 //		        //Handle the hit...
 //		    	System.out.println("ok");
 //		    }
-//		    scrollResp = client.prepareSearchScroll(scrollResp.getScrollId()).setScroll(new TimeValue(600000)).execute().actionGet();
+//		    response = client.prepareSearchScroll(response.getScrollId()).setScroll(new TimeValue(600000)).execute().actionGet();
 //		    //Break condition: No hits are returned
-//		    if (scrollResp.getHits().getHits().length == 0) {
+//		    if (response.getHits().getHits().length == 0) {
 //		        break;
 //		    }
 //		}		
@@ -75,9 +72,5 @@ public class SearchDocument {
 		QueryBuilder qb=multiMatchQuery(value,
 				"song_title","band","contributer","genre_type","lyrics","released_date");
 		return qb;
-	}
-	private static QueryBuilder fieldQuery(String field, String value) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

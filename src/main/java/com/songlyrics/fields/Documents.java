@@ -1,15 +1,23 @@
 package com.songlyrics.fields;
 
-public class Documents {
-	private double id;
+public class Documents{
 	private String song_title="";
-	private String contributer="";
+	private String artist="";
 	private String album_name="";
 	private String genre_type="";
 	private String band="";
+	private String lyrics="";
+	private String released_date="";	
+	private float rating=0;
 	
 	public String getGenre_type() {
 		return genre_type;
+	}
+	public float getRating() {
+		return rating;
+	}
+	public void setRating(float rating) {
+		this.rating = rating;
 	}
 	public String getBand() {
 		return band;
@@ -20,20 +28,11 @@ public class Documents {
 	public void setGenre_type(String genre_type) {
 		this.genre_type = genre_type;
 	}
-	private String lyrics;
-	private String released_date;
-	
 	public String getReleased_date() {
 		return released_date;
 	}
 	public void setReleased_date(String released_date) {
 		this.released_date = released_date;
-	}
-	public double getId() {
-		return id;
-	}
-	public void setId(double id) {
-		this.id = id;
 	}
 	public String getSong_title() {
 		return song_title;
@@ -42,10 +41,10 @@ public class Documents {
 		this.song_title = song_title;
 	}
 	public String getContributer() {
-		return contributer;
+		return artist;
 	}
 	public void setContributer(String contributer) {
-		this.contributer = contributer;
+		this.artist = contributer;
 	}
 	public String getAlbum_name() {
 		return album_name;

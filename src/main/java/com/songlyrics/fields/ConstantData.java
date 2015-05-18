@@ -1,6 +1,7 @@
 package com.songlyrics.fields;
 
 public enum ConstantData {
+//	elasticsearchTutorial
 	_INDEX("songs"),_TYPE("genre"),_CLUSTER_NAME("elasticsearchTutorial"),
 	_OPTION_INSERT("insert"),_OPTION_SEARCH("search")
 	,_OPTION_UPDATE("update"),_OPTION_SEARCH_ALL("searchall")
