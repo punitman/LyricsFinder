@@ -36,16 +36,13 @@ public class SearchDocument{
 	    }
 	try{
 		SearchHit[] results = response.getHits().getHits();
-//		Map<String,Object> map;
 		for (SearchHit hit : results) {
-			Map<String,Object> map = hit.getSource();  
-			String res=map.toString();
-//			System.out.println(">>"+map);
-//			System.out.println("  "+res);
+			String res=hit.sourceAsMap().toString();
 			Documents doc=new Documents();
-			doc=(Documents) map.get(res);
 			doc=	RetriveDocument.getDocument(res);
-//			ShowDocument.display(doc);
+
+			doc.setId(hit.getId());
+			System.out.println(res);
 			searchedMusic.add(doc);
 			}
 		}
@@ -70,7 +67,7 @@ public class SearchDocument{
 	private static QueryBuilder fieldQuery( String value) {
 		// TODO Auto-generated method stub
 		QueryBuilder qb=multiMatchQuery(value,
-				"song_title","band","contributer","genre_type","lyrics","released_date");
+				"song_title","band","artist","genre_type","lyrics","released_date");
 		return qb;
 	}
 }

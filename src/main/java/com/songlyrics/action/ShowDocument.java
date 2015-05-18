@@ -32,6 +32,8 @@ public class ShowDocument {
 	}
 	public static void display(Documents doc){
 		System.out.println("=========================================");
+		System.out.print("ID           : ");
+		show(doc.getId());
 		System.out.print("Album Name   : ");
 		show(doc.getAlbum_name());
 		System.out.print("Song Title   : ");
@@ -42,7 +44,7 @@ public class ShowDocument {
 		show(doc.getRating()+"");
 		if (detail) {
 			System.out.print("Contributer  : ");
-			show(doc.getContributer());
+			show(doc.getArtist());
 			System.out.print("Band         : ");
 			show(doc.getBand());
 			System.out.print("Genre Type   : ");

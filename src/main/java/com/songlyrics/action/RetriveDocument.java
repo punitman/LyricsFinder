@@ -15,7 +15,7 @@ public class RetriveDocument {
 			for (int i = 0; i < parts.size() - 1; i++) {
 //				System.out.println(parts.get(i));
 				fill(parts.get(i), parts.get(i + 1));
-					i++;
+				i++;
 			}
 		} catch (Exception ex) {
 			System.out.println("ERROR ON RETRIVE CLASS");
@@ -37,6 +37,7 @@ public class RetriveDocument {
 					res.add(word);
 				words[i]=words[i].replace(",","");
 				words[i]=words[i].replace("=","");
+				System.out.println(words[i]+" "+word);
 				word="";
 				res.add(words[i]);
 			}else
@@ -53,7 +54,7 @@ public class RetriveDocument {
 			return true;
 		else if (field.compareTo("rating") == 0)
 			return true;
-		else if (field.compareTo("contributer") == 0)
+		else if (field.compareTo("artist") == 0)
 			return true;
 		else if (field.compareTo("band") == 0)
 			return true;
@@ -65,27 +66,27 @@ public class RetriveDocument {
 			return true;
 		return false;
 	}
+//	song_title rating=5
 	private static boolean fill(String field,String value){
 		field=field.replace(",", "");
 		field=field.replace("=", "").trim();
-		value=value.replace("¬"," ");
 		value=value.replace(",",", ");
 		if(field.compareTo("album_name")==0)
-		doc.setAlbum_name(doc.getAlbum_name()+value);
+		doc.setAlbum_name(value);
 		else if(field.compareTo("song_title")==0)
-		doc.setSong_title(doc.getSong_title()+value);
+		doc.setSong_title(value);
 		else if(field.compareTo("rating")==0)
-		doc.setSong_title(doc.getRating()+value);
-		else if(field.compareTo("contributer")==0)
-		doc.setContributer(doc.getContributer()+value);
+		doc.setSong_title(value);
+		else if(field.compareTo("artist")==0)
+		doc.setArtist(value);
 		else if(field.compareTo("band")==0)
-		doc.setBand(doc.getBand()+value);
+		doc.setBand(value);
 		else if(field.compareTo("genre_type")==0)
-		doc.setGenre_type(doc.getGenre_type()+value);
+		doc.setGenre_type(value);
 		else if(field.compareTo("lyrics")==0)
-		doc.setLyrics(doc.getLyrics()+value);
+		doc.setLyrics(value);
 		else if(field.compareTo("released_date")==0)
-		doc.setReleased_date(doc.getReleased_date()+value);
+		doc.setReleased_date(value);
 		else
 			return false;
 		return true;

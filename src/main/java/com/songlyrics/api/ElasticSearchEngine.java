@@ -9,6 +9,7 @@ import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.node.Node;
 
+import com.songlyrics.action.DeleteDocument;
 import com.songlyrics.action.IndexerDocument;
 import com.songlyrics.action.SearchDocument;
 import com.songlyrics.fields.ConstantData;
@@ -39,6 +40,18 @@ public class ElasticSearchEngine implements SearchEngine{
 	public void exit(){
 		// TODO Auto-generated method stub
 		node.close();
+	}
+
+	@Override
+	public void delete(String id) {
+		// TODO Auto-generated method stub
+		DeleteDocument.delete(client, id);
+	}
+
+	@Override
+	public void update(String id, Documents document) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
