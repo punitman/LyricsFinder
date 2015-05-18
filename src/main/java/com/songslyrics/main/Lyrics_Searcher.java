@@ -1,5 +1,8 @@
 package com.songslyrics.main;
 
+import java.util.List;
+
+import com.songlyrics.action.DeleteDocument;
 import com.songlyrics.action.SelectOption;
 import com.songlyrics.action.ShowDocument;
 import com.songlyrics.action.UI_musicReview_Input;
@@ -36,6 +39,21 @@ public class Lyrics_Searcher {
 //								SearchDocument.search(client,
 										engine.search(
 										""));
+					}
+					else if(select.compareTo(ConstantData._OPTION_DELETE.toString())==0){
+						List<Documents> docs=engine.search(UI_userinput.input("Search").toLowerCase().trim());
+						if(docs.size()==1){
+							engine.delete(docs.get(0).getId());
+						}
+						else if(docs.size()>1){
+							ShowDocument.display(docs);
+							int index=UI_userinput.inputInt("SNO. for Deletion");
+							if(index==0)
+								index++;
+							System.out.println(" deleting :"+index+" id:"+docs.get(index-1).getId());
+							if(index> 0 &&index<=docs.size())
+								engine.delete(docs.get(index-1).getId());
+						}
 					}
 				} catch (Exception ex) {
 					// TODO Auto-generated catch block

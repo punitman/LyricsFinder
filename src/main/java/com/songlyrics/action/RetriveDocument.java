@@ -9,6 +9,7 @@ public class RetriveDocument {
 	private static String temp="";
 	public static Documents getDocument(String data){
 		doc=new Documents();
+		doc.reset();
 		try {
 //			System.out.println(data);
 			ArrayList<String> parts=splits(data);
@@ -23,11 +24,12 @@ public class RetriveDocument {
 		return doc;
 	}
 	private static ArrayList<String> splits(String data){
-		data=data.replace("{",",");
 		data=data.replace("}","");
 		data=data.replace("=,","=unknown,");
 		data=data.replace(", "," ,");
+		data=data.replace("{",",");
 		data=data.replace("=","= ").trim();
+//		System.out.println(data);
 		String[] words=data.split(" ");
 		ArrayList<String> res=new ArrayList<String>();
 		String word="";
@@ -37,7 +39,6 @@ public class RetriveDocument {
 					res.add(word);
 				words[i]=words[i].replace(",","");
 				words[i]=words[i].replace("=","");
-				System.out.println(words[i]+" "+word);
 				word="";
 				res.add(words[i]);
 			}else
@@ -45,38 +46,22 @@ public class RetriveDocument {
 				word+=words[i]+" ";
 			}
 		}
+		res.add(word);
 		return res;
-	}
-	private static boolean isField(String field){
-		if (field.compareTo("album_name") == 0)
-			return true;
-		else if (field.compareTo("song_title") == 0)
-			return true;
-		else if (field.compareTo("rating") == 0)
-			return true;
-		else if (field.compareTo("artist") == 0)
-			return true;
-		else if (field.compareTo("band") == 0)
-			return true;
-		else if (field.compareTo("genre_type") == 0)
-			return true;
-		else if (field.compareTo("lyrics") == 0)
-			return true;
-		else if (field.compareTo("released_date") == 0)
-			return true;
-		return false;
 	}
 //	song_title rating=5
 	private static boolean fill(String field,String value){
 		field=field.replace(",", "");
-		field=field.replace("=", "").trim();
-		value=value.replace(",",", ");
-		if(field.compareTo("album_name")==0)
+		field=field.replace("=", "");
+		field=field.trim();
+		value=value.replace(",",", ").trim();
+//		System.out.println(field+">>"+value);
+		if(field.compareTo("song_title")==0)
+		doc.setSong_title(value);
+		else if(field.compareTo("album_name")==0)
 		doc.setAlbum_name(value);
-		else if(field.compareTo("song_title")==0)
-		doc.setSong_title(value);
 		else if(field.compareTo("rating")==0)
-		doc.setSong_title(value);
+		doc.setRating(value);
 		else if(field.compareTo("artist")==0)
 		doc.setArtist(value);
 		else if(field.compareTo("band")==0)

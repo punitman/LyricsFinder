@@ -14,7 +14,7 @@ public class ShowDocument {
 		System.out.println("list size"+list.size());
 		for (int i = 0; i < list.size(); i++) {
 			try{
-				System.out.println("S.No> "+i);
+				System.out.println("S.No> "+(i+1));
 			    display(list.get(i));
 			}catch(Exception ex){
 				System.out.println("\nSHOWDOCUMENT:error in list num:"+i);
@@ -41,9 +41,9 @@ public class ShowDocument {
 		System.out.print("Lyrics       : ");
 		show(doc.getLyrics());
 		System.out.print("Rating       : ");
-		show(doc.getRating()+"");
+		show(doc.getRating());
 		if (detail) {
-			System.out.print("Contributer  : ");
+			System.out.print("Artist       : ");
 			show(doc.getArtist());
 			System.out.print("Band         : ");
 			show(doc.getBand());

@@ -9,8 +9,19 @@ public class Documents{
 	private String band="";
 	private String lyrics="";
 	private String released_date="";	
-	private String rating="0";
+	private String rating="";
 	
+	public void reset(){
+		song_title="";
+		id="";
+		artist="";
+		album_name="";
+		genre_type="";
+		band="";
+		lyrics="";
+		released_date="";	
+		rating="";
+	}
 	public String getGenre_type() {
 		return genre_type;
 	}

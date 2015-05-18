@@ -38,11 +38,11 @@ public class SearchDocument{
 		SearchHit[] results = response.getHits().getHits();
 		for (SearchHit hit : results) {
 			String res=hit.sourceAsMap().toString();
+			String id=hit.getId();
 			Documents doc=new Documents();
-			doc=	RetriveDocument.getDocument(res);
-
-			doc.setId(hit.getId());
-			System.out.println(res);
+			doc=RetriveDocument.getDocument(res);
+			System.out.println(id);
+			doc.setId(id);
 			searchedMusic.add(doc);
 			}
 		}
@@ -67,7 +67,7 @@ public class SearchDocument{
 	private static QueryBuilder fieldQuery( String value) {
 		// TODO Auto-generated method stub
 		QueryBuilder qb=multiMatchQuery(value,
-				"song_title","band","artist","genre_type","lyrics","released_date");
+				"song_title","band","artist","genre_type","album_name","lyrics","released_date");
 		return qb;
 	}
 }
