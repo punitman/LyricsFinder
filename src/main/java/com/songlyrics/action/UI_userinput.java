@@ -15,4 +15,9 @@ public class UI_userinput {
 		System.out.print("Enter "+data+" :");
 		return scan.nextLine();	
 	}
+	public static float inputFloat(String data){
+		Scanner scan =new Scanner(System.in);
+		System.out.print("Enter "+data+" :");
+		return scan.nextFloat();	
+	}
 }

@@ -10,6 +10,7 @@ public class UI_musicReview_Input {
 		music.setContributer(UI_userinput.input("Contributer"));
 		music.setBand(UI_userinput.input("Band"));
 		music.setGenre_type(UI_userinput.input("Genre Type"));
+		music.setRating(UI_userinput.inputFloat("Rating"));
 		music.setLyrics(UI_userinput.input("Lyrics"));
 		music.setReleased_date(UI_userinput.input("Released Date"));
 		return music;
