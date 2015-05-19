@@ -7,50 +7,48 @@ import com.songlyrics.fields.Documents;
 
 public class ShowDocument {
 	private static boolean detail=true;
-	public static void display(List<Documents> list){
+	public static void displayDocumentList(List<Documents> documentList){
 //		if(list.size()>1)
 //			detail=false;
-
-		System.out.println("list size"+list.size());
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < documentList.size(); i++) {
 			try{
 				System.out.println("S.No> "+(i+1));
-			    display(list.get(i));
+			    displayDocument(documentList.get(i));
 			}catch(Exception ex){
 				System.out.println("\nSHOWDOCUMENT:error in list num:"+i);
 			}
 		}
-		System.out.println("TOTAL DOCUMENTS FOUND: "+list.size());
+		System.out.println("TOTAL DOCUMENTS FOUND: "+documentList.size());
 		detail=true;
 
 	}
-	private static void show(String data){
+	private static void showString(String data){
 		if(data.length()>0)
 			System.out.println(data);
 		else
 			System.out.println("unknown");
 	}
-	public static void display(Documents doc){
+	public static void displayDocument(Documents document){
 		System.out.println("=========================================");
 		System.out.print("ID           : ");
-		show(doc.getId());
+		showString(document.getId());
 		System.out.print("Album Name   : ");
-		show(doc.getAlbum_name());
+		showString(document.getAlbum_name());
 		System.out.print("Song Title   : ");
-		show(doc.getSong_title());
+		showString(document.getSong_title());
 		System.out.print("Lyrics       : ");
-		show(doc.getLyrics());
+		showString(document.getLyrics());
 		System.out.print("Rating       : ");
-		show(doc.getRating());
+		showString(document.getRating());
 		if (detail) {
 			System.out.print("Artist       : ");
-			show(doc.getArtist());
+			showString(document.getArtist());
 			System.out.print("Band         : ");
-			show(doc.getBand());
+			showString(document.getBand());
 			System.out.print("Genre Type   : ");
-			show(doc.getGenre_type());
+			showString(document.getGenre_type());
 			System.out.print("Released Date: ");
-			show(doc.getReleased_date());
+			showString(document.getReleased_date());
 		}
 		System.out.println("=========================================");
 	}

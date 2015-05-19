@@ -23,31 +23,33 @@ public class RetriveDocFrmStr {
 		}
 		return doc;
 	}
-	private static ArrayList<String> splits(String data){
-		data=data.replace("}","");
-		data=data.replace("=,","=unknown,");
-		data=data.replace(", "," ,");
-		data=data.replace("{",",");
-		data=data.replace("=","= ").trim();
+	private static ArrayList<String> splits(String stringLine){
+		stringLine=stringLine.replace("}","");
+		stringLine=stringLine.replace("=,","=unknown,");
+		stringLine=stringLine.replace(", "," ,");
+		stringLine=stringLine.replace("{",",");
+		stringLine=stringLine.replace("=","= ").trim();
 //		System.out.println(data);
-		String[] words=data.split(" ");
-		ArrayList<String> res=new ArrayList<String>();
-		String word="";
-		for (int i = 0; i < words.length; i++) {
-			if(words[i].charAt(0)==',' && words[i].charAt(words[i].length()-1)=='='){
-				if(word.length()>0)
-					res.add(word);
-				words[i]=words[i].replace(",","");
-				words[i]=words[i].replace("=","");
-				word="";
-				res.add(words[i]);
+		String[] lineParts=stringLine.split(" ");
+		ArrayList<String> updatedParts=new ArrayList<String>();
+		
+		String parts="";
+		for (int i = 0; i < lineParts.length; i++) {
+			boolean isField=(lineParts[i].charAt(0)==',' && lineParts[i].charAt(lineParts[i].length()-1)=='=');
+			if(isField){
+				if(parts.length()>0)
+					updatedParts.add(parts);
+				lineParts[i]=lineParts[i].replace(",","");
+				lineParts[i]=lineParts[i].replace("=","");
+				parts="";
+				updatedParts.add(lineParts[i]);
 			}else
 			{
-				word+=words[i]+" ";
+				parts+=lineParts[i]+" ";
 			}
 		}
-		res.add(word);
-		return res;
+		updatedParts.add(parts);
+		return updatedParts;
 	}
 //	song_title rating=5
 	private static boolean fill(String field,String value){
@@ -56,21 +58,21 @@ public class RetriveDocFrmStr {
 		field=field.trim();
 		value=value.replace(",",", ").trim();
 //		System.out.println(field+">>"+value);
-		if(field.compareTo("song_title")==0)
+		if(field.equals("song_title"))
 		doc.setSong_title(value);
-		else if(field.compareTo("album_name")==0)
+		else if(field.equals("album_name"))
 		doc.setAlbum_name(value);
-		else if(field.compareTo("rating")==0)
+		else if(field.equals("rating"))
 		doc.setRating(value);
-		else if(field.compareTo("artist")==0)
+		else if(field.equals("artist"))
 		doc.setArtist(value);
-		else if(field.compareTo("band")==0)
+		else if(field.equals("band"))
 		doc.setBand(value);
-		else if(field.compareTo("genre_type")==0)
+		else if(field.equals("genre_type"))
 		doc.setGenre_type(value);
-		else if(field.compareTo("lyrics")==0)
+		else if(field.equals("lyrics"))
 		doc.setLyrics(value);
-		else if(field.compareTo("released_date")==0)
+		else if(field.equals("released_date"))
 		doc.setReleased_date(value);
 		else
 			return false;

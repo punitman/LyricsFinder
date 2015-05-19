@@ -15,7 +15,7 @@ public class GetUserInput {
 		System.out.print("Enter "+data+" :");
 		return scan.nextLine();	
 	}
-	public static int inputInt(String data){
+	public static int getInputInt(String data){
 		Scanner scan =new Scanner(System.in);
 		System.out.print("Enter "+data+" :");
 		return scan.nextInt();	

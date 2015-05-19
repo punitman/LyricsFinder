@@ -15,57 +15,61 @@ import com.songlyrics.utils.ShowDocument;
 
 public class Lyrics_Searcher {
 
+	public static void deleteDocument(SearchEngine engine){
+		String searchData=GetUserInput.getInput("Search").toLowerCase().trim();
+		List<Documents> documents=engine.search(searchData);
+		String deleteId="";
+		if(documents.size()==1){
+			deleteId=documents.get(0).getId();
+			engine.delete(deleteId);
+		}
+		else if(documents.size()>1){
+			ShowDocument.displayDocumentList(documents);
+			int index=GetUserInput.getInputInt("SNO. for Deletion");
+			if(index==0)
+				index++;
+			boolean indexIsValid=(index> 0 &&index<=documents.size());
+			if(indexIsValid){
+				deleteId=documents.get(index-1).getId();
+				engine.delete(deleteId);
+			}
+		}
+		System.out.println(" Id:"+deleteId+" Deleting ");
+		
+	}
+	public static void SearchDocument(SearchEngine engine){
+		
+	}
 	public static void main(String[] args) {
 		SearchEngine engine=SearchEngineFactory.createSearchEngine(SEARCHENGINE_TYPE._ELASTICSEARCH.toString());
 		String select;
 		do {
-			select = ShowActionOption.select();
+			select = ShowActionOption.selectOption();
 			if (select.trim().compareTo(FIELDS._OPTION_EXIT.toString()) != 0) {
 				try {
 					if (select.trim().compareTo(FIELDS._OPTION_INSERT.toString()) == 0){
 						Documents music=GetDocumentInput.insertMusic();
-//						IndexerDocument.insert(client,music);
 						engine.insert(music);
 					}
 					else if (select.trim().compareTo(FIELDS._OPTION_SEARCH.toString()) == 0)
 					{
-						ShowDocument.display(
-//								SearchDocument.search(client,
-								engine.search(
-										GetUserInput.getInput("Search").toLowerCase().trim()));
+						String searchData=GetUserInput.getInput("Search").toLowerCase().trim();
+						ShowDocument.displayDocumentList(engine.search(searchData));
 					}else if (select.trim().compareTo(FIELDS._OPTION_SEARCH_ALL.toString()) == 0)
 					{
-						ShowDocument.display(
-//								SearchDocument.search(client,
-										engine.search(
-										""));
+						ShowDocument.displayDocumentList(engine.search(""));
 					}
 					else if(select.compareTo(FIELDS._OPTION_DELETE.toString())==0){
-						List<Documents> docs=engine.search(GetUserInput.getInput("Search").toLowerCase().trim());
-						if(docs.size()==1){
-							engine.delete(docs.get(0).getId());
-						}
-						else if(docs.size()>1){
-							ShowDocument.display(docs);
-							int index=GetUserInput.inputInt("SNO. for Deletion");
-							if(index==0)
-								index++;
-							System.out.println(" deleting :"+index+" id:"+docs.get(index-1).getId());
-							if(index> 0 &&index<=docs.size())
-								engine.delete(docs.get(index-1).getId());
-						}
+						deleteDocument(engine);
 					}
 				} catch (Exception ex) {
 					// TODO Auto-generated catch block
-					System.out.println("exception in main");
+					System.out.println("Exception in main");
 					ex.getStackTrace();
 
 				}
 			}
-			else
-				break;
-		} while (select.trim().compareTo(FIELDS._OPTION_EXIT.toString()) != 0);
-//		node.close();
+		} while (select.compareTo(FIELDS._OPTION_EXIT.toString()) != 0);
 		engine.exit();
 	}
 }
