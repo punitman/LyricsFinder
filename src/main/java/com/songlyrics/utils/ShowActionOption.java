@@ -17,14 +17,17 @@ public class ShowActionOption {
 			expendedform= FIELDS._OPTION_DELETE.toString();
 		else if(option.equals("e"))
 			expendedform= FIELDS._OPTION_EXIT.toString();
+		else if(option.equals("u"))
+			expendedform= FIELDS._OPTION_UPDATE.toString();
 		return expendedform;
 	}
 	public static String selectOption(){
 		System.out.println("===========OPTIONS==============");
 		System.out.println("     Insert      press : i");
 		System.out.println("     Search      press : s");
-		System.out.println("     Display all press : a");
 		System.out.println("     Delete      press : d");
+		System.out.println("     Update      press : u");
+		System.out.println("     Display all press : a");
 		System.out.println("     Exit        press : e");
 		System.out.println("================================");
 		return getFullfrom(GetUserInput.getInput("Choice"));

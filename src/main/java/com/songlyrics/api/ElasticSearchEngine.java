@@ -12,6 +12,7 @@ import org.elasticsearch.node.Node;
 import com.songlyrics.action.DeleteDocument;
 import com.songlyrics.action.IndexerDocument;
 import com.songlyrics.action.SearchDocument;
+import com.songlyrics.action.UpdateDocument;
 import com.songlyrics.fields.FIELDS;
 import com.songlyrics.fields.Documents;
 import com.songlyrics.services.SearchEngine;
@@ -49,9 +50,10 @@ public class ElasticSearchEngine implements SearchEngine{
 	}
 
 	@Override
-	public void update(String id, Documents document) {
+	public void update(String id, String fieldName, String newValue) {
 		// TODO Auto-generated method stub
-		
+		UpdateDocument.update(client, id, fieldName, newValue);
 	}
+
 
 }

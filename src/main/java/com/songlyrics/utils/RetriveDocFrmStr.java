@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import com.songlyrics.fields.Documents;
 
 public class RetriveDocFrmStr {
-	private static Documents doc;
-	private static String temp="";
+	private static Documents document;
 	public static Documents getDocument(String data){
-		doc=new Documents();
-		doc.reset();
+		document=new Documents();
+		document.reset();
 		try {
 //			System.out.println(data);
 			ArrayList<String> parts=splits(data);
@@ -21,7 +20,7 @@ public class RetriveDocFrmStr {
 		} catch (Exception ex) {
 			System.out.println("ERROR ON RETRIVE CLASS");
 		}
-		return doc;
+		return document;
 	}
 	private static ArrayList<String> splits(String stringLine){
 		stringLine=stringLine.replace("}","");
@@ -59,21 +58,21 @@ public class RetriveDocFrmStr {
 		value=value.replace(",",", ").trim();
 //		System.out.println(field+">>"+value);
 		if(field.equals("song_title"))
-		doc.setSong_title(value);
+		document.setSong_title(value);
 		else if(field.equals("album_name"))
-		doc.setAlbum_name(value);
+		document.setAlbum_name(value);
 		else if(field.equals("rating"))
-		doc.setRating(value);
+		document.setRating(value);
 		else if(field.equals("artist"))
-		doc.setArtist(value);
+		document.setArtist(value);
 		else if(field.equals("band"))
-		doc.setBand(value);
+		document.setBand(value);
 		else if(field.equals("genre_type"))
-		doc.setGenre_type(value);
+		document.setGenre_type(value);
 		else if(field.equals("lyrics"))
-		doc.setLyrics(value);
+		document.setLyrics(value);
 		else if(field.equals("released_date"))
-		doc.setReleased_date(value);
+		document.setReleased_date(value);
 		else
 			return false;
 		return true;

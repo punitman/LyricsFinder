@@ -29,7 +29,6 @@ public class SearchDocument{
 			response = client.
 					prepareSearch(FIELDS._INDEX.toString())
 					.setTypes(FIELDS._TYPE.toString())
-//					.setQuery(fieldQuery(value))
 					.setExplain(true)
 					.execute().actionGet();
 	    }
@@ -47,7 +46,6 @@ public class SearchDocument{
 	    return documentList;
 	}
 	private static QueryBuilder fieldQuery( String value) {
-		// TODO Auto-generated method stub
 		QueryBuilder qb=multiMatchQuery(value,
 				"song_title","band","artist","genre_type","album_name","lyrics","released_date");
 		return qb;
