@@ -1,10 +1,10 @@
-package com.songlyrics.action;
+package com.songlyrics.utils;
 
 import java.util.ArrayList;
 
 import com.songlyrics.fields.Documents;
 
-public class RetriveDocument {
+public class RetriveDocFrmStr {
 	private static Documents doc;
 	private static String temp="";
 	public static Documents getDocument(String data){

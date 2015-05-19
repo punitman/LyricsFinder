@@ -12,12 +12,12 @@ import org.elasticsearch.node.Node;
 import com.songlyrics.action.DeleteDocument;
 import com.songlyrics.action.IndexerDocument;
 import com.songlyrics.action.SearchDocument;
-import com.songlyrics.fields.ConstantData;
+import com.songlyrics.fields.FIELDS;
 import com.songlyrics.fields.Documents;
 import com.songlyrics.services.SearchEngine;
 
 public class ElasticSearchEngine implements SearchEngine{
-	private Node node = nodeBuilder().clusterName(ConstantData._CLUSTER_NAME.toString()).node();	
+	private Node node = nodeBuilder().clusterName(FIELDS._CLUSTER_NAME.toString()).node();	
 	private Client client = node.client();
 
 	@Override

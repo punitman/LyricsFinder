@@ -1,5 +1,5 @@
 package com.songlyrics.fields;
 
-public enum SEARCH_ENGINE_TYPE {
+public enum SEARCHENGINE_TYPE {
 	_ELASTICSEARCH;
 }

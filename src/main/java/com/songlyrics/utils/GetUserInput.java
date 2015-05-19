@@ -1,16 +1,16 @@
-package com.songlyrics.action;
+package com.songlyrics.utils;
 
 import java.util.Scanner;
 
-public class UI_userinput {
+public class GetUserInput {
 	
-	public static String input(){
+	public static String getInput(){
 		Scanner scan =new Scanner(System.in);
 		System.out.print("Enter Data :");
 		return scan.nextLine();
 		
 	}
-	public static String input(String data){
+	public static String getInput(String data){
 		Scanner scan =new Scanner(System.in);
 		System.out.print("Enter "+data+" :");
 		return scan.nextLine();	

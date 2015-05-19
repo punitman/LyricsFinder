@@ -10,59 +10,41 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHit;
 
-import com.songlyrics.fields.ConstantData;
+import com.songlyrics.fields.FIELDS;
 import com.songlyrics.fields.Documents;
+import com.songlyrics.utils.RetriveDocFrmStr;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 public class SearchDocument{
 	public static List<Documents> search(Client client,String value){
-		List<Documents> searchedMusic=new ArrayList<Documents>();
 		SearchResponse response ;
 		if(value.length()>0)
-		response = client.
-				prepareSearch(ConstantData._INDEX.toString())
-				.setTypes(ConstantData._TYPE.toString())
+		response = client.prepareSearch(FIELDS._INDEX.toString())
+				.setTypes(FIELDS._TYPE.toString())
 				.setQuery(fieldQuery(value))
 				.setExplain(true)
 				.execute().actionGet();//.prepareSearch(LyricsFinderConstants._INDEX.toString())
 		else{
 			response = client.
-					prepareSearch(ConstantData._INDEX.toString())
-					.setTypes(ConstantData._TYPE.toString())
+					prepareSearch(FIELDS._INDEX.toString())
+					.setTypes(FIELDS._TYPE.toString())
 //					.setQuery(fieldQuery(value))
 					.setExplain(true)
 					.execute().actionGet();
 	    }
-	try{
+		return getDocListFrmResponse(response);
+	}
+	private static List<Documents> getDocListFrmResponse(SearchResponse response){
+		List<Documents> documentList=new ArrayList<Documents>();
 		SearchHit[] results = response.getHits().getHits();
 		for (SearchHit hit : results) {
-			String res=hit.sourceAsMap().toString();
-			String id=hit.getId();
 			Documents doc=new Documents();
-			doc=RetriveDocument.getDocument(res);
-			System.out.println(id);
-			doc.setId(id);
-			searchedMusic.add(doc);
+			doc=RetriveDocFrmStr.getDocument(hit.sourceAsMap().toString());
+			doc.setId(hit.getId());
+			documentList.add(doc);
 			}
-		}
-		catch(Exception ex){
-			System.out.println(ex.getMessage());
-		}
-		//Scroll until no hits are returned
-		
-//		while (true) {
-//		    for (SearchHit hit : response.getHits().getHits()) {
-//		        //Handle the hit...
-//		    	System.out.println("ok");
-//		    }
-//		    response = client.prepareSearchScroll(response.getScrollId()).setScroll(new TimeValue(600000)).execute().actionGet();
-//		    //Break condition: No hits are returned
-//		    if (response.getHits().getHits().length == 0) {
-//		        break;
-//		    }
-//		}		
-		return searchedMusic;
+	    return documentList;
 	}
 	private static QueryBuilder fieldQuery( String value) {
 		// TODO Auto-generated method stub
